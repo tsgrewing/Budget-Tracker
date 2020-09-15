@@ -13,7 +13,7 @@ const FILES_TO_CACHE = [
 const CACHE_NAME = "static-cache-v2";
 const DATA_CACHE_NAME = "data-cache-v1";
 
-self.addEventListener("install", function (evt) {
+self.addEventListener("install", evt => {
   evt.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log("Files successfully precached");
@@ -24,7 +24,7 @@ self.addEventListener("install", function (evt) {
   self.skipWaiting();
 });
 
-self.addEventListener("activate", function (evt) {
+self.addEventListener("activate", evt => {
   evt.waitUntil(
     caches.keys().then((keyList) => {
       return Promise.all(
@@ -41,7 +41,7 @@ self.addEventListener("activate", function (evt) {
   self.clients.claim();
 });
 
-self.addEventListener("fetch", function (evt) {
+self.addEventListener("fetch", evt => {
   if (evt.request.url.includes("/api/")) {
     evt.respondWith(
       caches
